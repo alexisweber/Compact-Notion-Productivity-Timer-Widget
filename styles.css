@@ -1,0 +1,317 @@
+:root{
+  /* Default theme (pink) */
+  --bg: #ffd6e7;          /* light */
+  --dark: #c2185b;        /* dark */
+  --textLight: #ffeaf3;   /* light text on dark */
+  --track: #f3a7c6;       /* lighter ring track */
+  --shadow: rgba(194, 24, 91, 0.20);
+
+  --radius: 56;
+  --stroke: 10;
+  --corner: 18px;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  background: transparent;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+}
+
+/* widget */
+.widget {
+  width: min(280px, 92vw);
+  aspect-ratio: 1 / 1;
+  background: var(--bg);
+  border-radius: var(--corner);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  display: grid;
+  grid-template-rows: auto 1fr auto auto; /* add row for settings button */
+  padding: 14px;
+  box-sizing: border-box;
+  user-select: none;
+  position: relative;
+}
+
+/* Toggles */
+.toggles {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.toggle-btn {
+  border: 0;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: var(--dark);
+  color: var(--textLight);
+  font-weight: 700;
+  font-size: 12px;
+  min-width: 72px;
+  opacity: 0.75;
+  box-shadow: 0 6px 14px var(--shadow);
+  transition: transform 120ms ease, opacity 120ms ease;
+}
+
+.toggle-btn.active {
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+/* Center area */
+.center-area {
+  display: grid;
+  grid-template-columns: 34px 1fr 34px;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 4px 0;
+}
+
+.side-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  border: 0;
+  background: var(--dark);
+  color: var(--textLight);
+  font-size: 18px;
+  font-weight: 800;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 6px 14px var(--shadow);
+}
+.side-btn:active { transform: scale(0.96); }
+
+.timer-wrap {
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+.time-text {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-variant-numeric: tabular-nums;
+  color: var(--dark);
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-align: center;
+  padding-top: 2px;
+}
+.time-text .big { font-size: 24px; }
+
+svg {
+  width: 100%;
+  max-width: 170px;
+  height: auto;
+}
+
+.ring-track {
+  stroke: var(--track);
+  opacity: 0.90;
+}
+
+.ring-progress {
+  stroke: var(--dark);
+  transition: stroke-dashoffset 180ms linear;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+  stroke-linecap: round;
+}
+
+/* Controls */
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding-bottom: 2px;
+}
+.ctrl {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  border: 0;
+  background: var(--dark);
+  color: var(--textLight);
+  cursor: pointer;
+  box-shadow: 0 6px 14px var(--shadow);
+
+  /* center everything */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ctrl:active { transform: scale(0.96); }
+
+/* icons */
+.play {
+  width: 0; height: 0;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-left: 11px solid var(--textLight);
+  transform: translateX(1px); /* optical center */
+}
+.pause {
+  width: 12px;
+  height: 12px;
+  display: flex;
+  justify-content: space-between;
+  gap: 3px;
+}
+.pause span {
+  width: 4px;
+  background: var(--textLight);
+  border-radius: 2px;
+}
+.stop {
+  width: 12px;
+  height: 12px;
+  background: var(--textLight);
+  border-radius: 3px;
+}
+
+/* settings row */
+.cog {
+  font-size: 16px;
+  line-height: 1;
+}
+
+/* Modal overlay */
+.modal-overlay {
+  position: absolute;
+  inset: 0;
+  display: none; /* toggled by JS */
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.08);
+  border-radius: var(--corner);
+}
+
+.modal-overlay.open { display: flex; }
+
+.modal {
+  width: 78%;
+  max-width: 210px;
+  background: var(--dark);
+  color: var(--textLight);
+  border-radius: 16px;
+  padding: 14px 14px 12px;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.18);
+  position: relative;
+}
+
+.modal-title {
+  text-align: center;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+/* close button */
+.modal-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  border: 0;
+  cursor: pointer;
+  background: var(--textLight);
+  color: var(--dark);
+  display: grid;
+  place-items: center;
+}
+.close-x {
+  font-size: 16px;
+  line-height: 1;
+  transform: translateY(-1px);
+}
+
+/* swatches */
+.swatch-row,
+.sound-row {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.swatch, .sound-btn {
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  border: 2px solid rgba(255,255,255,0.35);
+  cursor: pointer;
+  background: transparent;
+  display: grid;
+  place-items: center;
+}
+
+.swatch.selected,
+.sound-btn.selected {
+  outline: 2px solid rgba(255,255,255,0.85);
+  outline-offset: 2px;
+}
+
+/* color swatches */
+.swatch-pink  { background: #ffd6e7; }
+.swatch-blue  { background: #cfe8ff; }
+.swatch-yellow{ background: #fff2b8; }
+.swatch-white { background: #ffffff; }
+
+/* sound buttons (all dark background with light content) */
+.sound-btn {
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  border: 2px solid rgba(255,255,255,0.35);
+  cursor: pointer;
+  background: rgba(255,255,255,0.12);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;              /* important for centering */
+  line-height: 0;          /* prevents vertical drift */
+}
+
+.dot {
+  display: block;
+  border-radius: 999px;
+  background: var(--textLight);
+}
+
+.dot-small { width: 8px; height: 8px; }
+.dot-large { width: 14px; height: 14px; }
+
+.sound-icon {
+  width: 16px;
+  height: 16px;
+  color: var(--textLight);   /* makes outline light based on theme */
+  display: block;
+}
+
+.icon {
+  font-size: 14px;
+  line-height: 1;
+}
+/* Any inline SVG that should inherit theme color */
+.icon-svg {
+  width: 16px;
+  height: 16px;
+  display: block;
+
+  /* This makes currentColor work */
+  color: var(--textLight);
+
+  /* Force fills/strokes to inherit */
+  fill: currentColor;
+  stroke: none;
+}

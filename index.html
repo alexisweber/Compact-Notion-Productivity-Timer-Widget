@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Notion Productivity Timer</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <div class="widget" id="widget" data-theme="pink">
+    <div class="toggles">
+      <button class="toggle-btn active" id="btnBurst" type="button">Burst</button>
+      <button class="toggle-btn" id="btnDeep" type="button">Deep</button>
+    </div>
+
+    <div class="center-area">
+      <button class="side-btn" id="btnMinus" type="button">−</button>
+
+      <div class="timer-wrap">
+        <svg viewBox="0 0 140 140" aria-label="Countdown timer ring" role="img">
+          <circle class="ring-track"
+                  cx="70" cy="70" r="56"
+                  fill="transparent"
+                  stroke-width="10" />
+          <circle class="ring-progress"
+                  id="ringProgress"
+                  cx="70" cy="70" r="56"
+                  fill="transparent"
+                  stroke-width="10" />
+        </svg>
+
+        <div class="time-text">
+          <div class="big" id="timeDisplay">00:25:00</div>
+        </div>
+      </div>
+
+      <button class="side-btn" id="btnPlus" type="button">+</button>
+    </div>
+
+<!-- Bottom row: play/pause/stop/settings (centered) -->
+    <div class="controls">
+      <button class="ctrl" id="btnPlay" type="button" aria-label="Play">
+        <div class="play"></div>
+      </button>
+
+      <button class="ctrl" id="btnPause" type="button" aria-label="Pause">
+        <div class="pause"><span></span><span></span></div>
+      </button>
+
+      <button class="ctrl" id="btnStop" type="button" aria-label="Stop">
+        <div class="stop"></div>
+      </button>
+
+      <button class="ctrl" id="btnSettings" type="button" aria-label="Settings">
+        <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M259.1 73.5C262.1 58.7 275.2 48 290.4 48L350.2 48C365.4 48 378.5 58.7 381.5 73.5L396 143.5C410.1 149.5 423.3 157.2 435.3 166.3L503.1 143.8C517.5 139 533.3 145 540.9 158.2L570.8 210C578.4 223.2 575.7 239.8 564.3 249.9L511 297.3C511.9 304.7 512.3 312.3 512.3 320C512.3 327.7 511.8 335.3 511 342.7L564.4 390.2C575.8 400.3 578.4 417 570.9 430.1L541 481.9C533.4 495 517.6 501.1 503.2 496.3L435.4 473.8C423.3 482.9 410.1 490.5 396.1 496.6L381.7 566.5C378.6 581.4 365.5 592 350.4 592L290.6 592C275.4 592 262.3 581.3 259.3 566.5L244.9 496.6C230.8 490.6 217.7 482.9 205.6 473.8L137.5 496.3C123.1 501.1 107.3 495.1 99.7 481.9L69.8 430.1C62.2 416.9 64.9 400.3 76.3 390.2L129.7 342.7C128.8 335.3 128.4 327.7 128.4 320C128.4 312.3 128.9 304.7 129.7 297.3L76.3 249.8C64.9 239.7 62.3 223 69.8 209.9L99.7 158.1C107.3 144.9 123.1 138.9 137.5 143.7L205.3 166.2C217.4 157.1 230.6 149.5 244.6 143.4L259.1 73.5zM320.3 400C364.5 399.8 400.2 363.9 400 319.7C399.8 275.5 363.9 239.8 319.7 240C275.5 240.2 239.8 276.1 240 320.3C240.2 364.5 276.1 400.2 320.3 400z"/></svg>
+      </button>
+    </div>
+
+    <!-- Settings modal -->
+    <div class="modal-overlay" id="settingsOverlay" aria-hidden="true">
+      <div class="modal" role="dialog" aria-modal="true" aria-label="Timer settings">
+        <button class="modal-close" id="btnCloseSettings" type="button" aria-label="Close settings">
+          <span class="close-x">×</span>
+        </button>
+
+        <div class="modal-title">Color</div>
+        <div class="swatch-row" role="group" aria-label="Color themes">
+          <button class="swatch swatch-pink"  id="themePink"  type="button" aria-label="Pink theme"></button>
+          <button class="swatch swatch-blue"  id="themeBlue"  type="button" aria-label="Blue theme"></button>
+          <button class="swatch swatch-yellow" id="themeYellow" type="button" aria-label="Yellow theme"></button>
+          <button class="swatch swatch-white" id="themeBW"    type="button" aria-label="Black and white theme"></button>
+        </div>
+
+        <div class="modal-title" style="margin-top:14px;">Sound</div>
+        <div class="sound-row" role="group" aria-label="Sound modes">
+          <button class="sound-btn" id="soundSoft" type="button" aria-label="Soft beeps">
+            <span class="dot dot-small"></span>
+          </button>
+
+          <button class="sound-btn" id="soundLoud" type="button" aria-label="Loud beeps">
+            <span class="dot dot-large"></span>
+          </button>
+
+          <button class="sound-btn" id="soundBird" type="button" aria-label="Bird sounds">
+          <!-- outline silhouette bird -->
+           <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M560 128C573.2 128 580.7 143.1 572.8 153.6L544 192L544 368C544 447.5 479.5 512 400 512L288 512L241.7 558.3C231.3 568.7 215.2 570.7 202.6 563.1L105.5 504.9C88.5 494.7 90.5 469.4 108.9 462L224 416C87.8 375.1 71.5 233.8 86 159.7C89.6 141.9 109.3 135.4 125.3 144.2L384 288L384 208C384 163.8 419.8 128 464 128L560 128zM464 184C450.7 184 440 194.7 440 208C440 221.3 450.7 232 464 232C477.3 232 488 221.3 488 208C488 194.7 477.3 184 464 184zM246.5 54.4C258.9 40.7 279.8 45.5 289 61.5L345.4 159.8C339.6 174.2 336.2 189.9 336 206.3L202.1 132C212.2 100.4 229.1 73.6 246.5 54.4z"/></svg>
+          </button>
+
+          <button class="sound-btn" id="soundMusic" type="button" aria-label="Light music">
+          <!-- outline music note -->
+           <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M532 71C539.6 77.1 544 86.3 544 96L544 400C544 444.2 501 480 448 480C395 480 352 444.2 352 400C352 355.8 395 320 448 320C459.2 320 470 321.6 480 324.6L480 207.9L256 257.7L256 464C256 508.2 213 544 160 544C107 544 64 508.2 64 464C64 419.8 107 384 160 384C171.2 384 182 385.6 192 388.6L192 160C192 145 202.4 132 217.1 128.8L505.1 64.8C514.6 62.7 524.5 65 532.1 71.1z"/></svg>
+           </button>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script src="timer.js" defer></script>
+</body>
+</html>
