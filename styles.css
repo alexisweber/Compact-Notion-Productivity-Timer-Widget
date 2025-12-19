@@ -315,3 +315,38 @@ svg {
   fill: currentColor;
   stroke: none;
 }
+/* Compact mode */
+.widget {
+  width: min(240px, 88vw);
+  padding: 12px;
+}
+
+svg {
+  max-width: 150px;
+}
+
+.time-text .big {
+  font-size: 20px;
+}
+
+.center-area {
+  grid-template-columns: 28px 1fr 28px;
+  gap: 8px;
+  padding: 6px 2px 0;
+}
+
+.ctrl {
+  width: 30px;
+  height: 30px;
+}
+
+.side-btn {
+  width: 26px;
+  height: 26px;
+  font-size: 16px;
+}
+
+.controls {
+  gap: 8px;
+}
+
