@@ -33,7 +33,7 @@ html, body {
   position: relative;
 }
 
-/* Toggles */
+/* toggles */
 .toggles {
   display: flex;
   justify-content: center;
@@ -60,7 +60,7 @@ html, body {
   transform: translateY(-1px);
 }
 
-/* Center area */
+/* center area */
 .center-area {
   display: grid;
   grid-template-columns: 34px 1fr 34px;
@@ -181,7 +181,7 @@ svg {
   line-height: 1;
 }
 
-/* Modal overlay */
+/* settings modal overlay */
 .modal-overlay {
   position: absolute;
   inset: 0;
@@ -213,7 +213,7 @@ svg {
   margin-bottom: 10px;
 }
 
-/* close button */
+/* settings modal close button */
 .modal-close {
   position: absolute;
   top: 8px;
@@ -234,7 +234,7 @@ svg {
   transform: translateY(-1px);
 }
 
-/* swatches */
+/* swatches color themes */
 .swatch-row,
 .sound-row {
   display: flex;
@@ -259,7 +259,7 @@ svg {
   outline-offset: 2px;
 }
 
-/* color swatches */
+/* color theme swatches */
 .swatch-pink  { background: #ffd6e7; }
 .swatch-blue  { background: #cfe8ff; }
 .swatch-yellow{ background: #fff2b8; }
@@ -294,7 +294,8 @@ svg {
 .sound-icon {
   width: 16px;
   height: 16px;
-  color: var(--textLight);   /* makes outline light based on theme */
+  /* makes outline light based on theme */
+  color: var(--textLight); 
   display: block;
 }
 
@@ -302,20 +303,20 @@ svg {
   font-size: 14px;
   line-height: 1;
 }
-/* Any inline SVG that should inherit theme color */
+
+/* inline svg will inherit color theme */
 .icon-svg {
   width: 16px;
   height: 16px;
   display: block;
-
-  /* This makes currentColor work */
   color: var(--textLight);
 
-  /* Force fills/strokes to inherit */
+  /* inherit fill and stroke color */
   fill: currentColor;
   stroke: none;
 }
-/* Compact mode */
+
+/* compact */
 .widget {
   width: min(240px, 88vw);
   padding: 12px;
