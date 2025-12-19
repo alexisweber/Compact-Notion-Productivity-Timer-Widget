@@ -174,7 +174,7 @@
   let raf = null;
   let lastTime = null;
 
-  // ring geometry (matches your SVG r=70)
+  // ring geometry (matches your SVG r=65)
   const R = 65;
   const CIRC = 2 * Math.PI * R;
   ringProgress.style.strokeDasharray = `${CIRC} ${CIRC}`;
@@ -277,16 +277,12 @@
     if (modeName === "bird") soundBird?.classList.add("selected");
     if (modeName === "music") soundMusic?.classList.add("selected");
   }
-  function openSettings(){
-    stopPreview();
-    settingsOverlay?.classList.add("open");
-    settingsOverlay?.setAttribute("aria-hidden", "false");
-  }
 
   /* ---------------------------
      MODAL open/close
   ---------------------------- */
   function openSettings(){
+    stopPreview();
     settingsOverlay?.classList.add("open");
     settingsOverlay?.setAttribute("aria-hidden", "false");
   }
